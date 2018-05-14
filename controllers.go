@@ -32,7 +32,7 @@ func (a *App) getUsers(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *App) createUser(w http.ResponseWriter, r *http.Request) {
-  var u user
+  var u User
   decoder := json.NewDecoder(r.Body)
   if err := decoder.Decode(&u); err != nil {
     respondWithError(w, http.StatusBadRequest, "Invalid request payload")
@@ -56,7 +56,7 @@ func (a *App) getUser(w http.ResponseWriter, r *http.Request) {
     return
   }
 
-  u := user{ID: id}
+  u := User{ID: id}
   if err := u.getUser(a.DB); err != nil {
     switch err {
     case sql.ErrNoRows:
@@ -78,7 +78,7 @@ func (a *App) updateUser(w http.ResponseWriter, r *http.Request) {
     return
   }
 
-  var u user
+  var u User
   decoder := json.NewDecoder(r.Body)
   if err := decoder.Decode(&u); err != nil {
     respondWithError(w, http.StatusBadRequest, "Invalid resquest payload")
@@ -103,7 +103,7 @@ func (a *App) deleteUser(w http.ResponseWriter, r *http.Request) {
     return
   }
 
-  u := user{ID: id}
+  u := User{ID: id}
   if err := u.deleteUser(a.DB); err != nil {
     respondWithError(w, http.StatusInternalServerError, err.Error())
     return
