@@ -12,13 +12,23 @@ import (
 	"os"
 	"strconv"
 	"testing"
+
+	"github.com/joho/godotenv"
 )
 
 var a App
 
 func TestMain(m *testing.M) {
+  err := godotenv.Load()
+  if err != nil {
+    log.Fatal("Error loading .env file")
+  }
+
 	a = App{}
-	a.Initialize("root", "", "rest_api_test")
+  a.Initialize(
+    os.Getenv("TEST_DB_USERNAME"),
+    os.Getenv("TEST_DB_PASSWORD"),
+    os.Getenv("TEST_DB_NAME"))
 
 	ensureTableExists()
 
