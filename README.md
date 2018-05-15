@@ -24,5 +24,13 @@ TEST_DB_PASSWORD=
 TEST_DB_NAME=rest_api_test
 ```
 
+# Database Migration:
+Currently the app uses goose for handling database migrations:
+
+on first run:
+```
+goose mysql "root:password@/dbName" up
+```
+
 # TODO
-  - create a database migration with pre initialize data.
+  - add more test
